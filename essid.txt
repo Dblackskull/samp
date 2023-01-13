@@ -1,0 +1,27 @@
+
+
+$.ajax({
+   url: "/essid2",
+   type: "GET",
+   success: function(response){
+      console.log(response);
+  	for(var i = 0 ; i< response.length ; i++)
+  	{
+  	console.log(response[i]);
+      $('#tabb').append("<tr>\
+       <td>"+response[i][5]+"</td>\
+       <td>"+response[i][0]+"</td>\
+       <td>"+response[i][1]+"</td>\
+       <td>"+response[i][2]+"</td>\
+       <td>"+response[i][3]+"</td>\
+       <td>"+response[i][4]+"</td>\
+       <td> <button class='btn btn-dark btn-lg' type='submit' name='button' value='"+ response[i][5] + '=' + response[i][1] + '=' +response[i][0]+ '=' + response[i][3] + "'>Select</button> </td>\
+       </tr>");
+      
+  }
+  $("#scan_button").removeClass("loading");
+ },
+ error: function(xhr, status, error) {
+  alert(xhr);
+}
+});

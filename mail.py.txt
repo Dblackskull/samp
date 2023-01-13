@@ -1,0 +1,32 @@
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib
+import ssl
+ 
+def alert(receiver_email):
+
+	sender_email = "Sudo.wifi.auth@gmail.com"
+	password = "asixdylmyqgnrjez"
+	message = MIMEMultipart("alternative")
+	message["Subject"] = "Alert"
+	message["From"] = sender_email
+	message["To"] = receiver_email
+	html = """\
+	    <html>
+	      <body>
+		<p>Hi Buddy,Someone entered your Wifi<br>
+		   <a href="http://192.168.29.209:5000/login">Click here</a> 
+		   to protect.
+		</p>
+	      </body>
+	    </html>
+	    """
+	part2 = MIMEText(html, "html")
+	message.attach(part2)
+	context = ssl.create_default_context()
+	with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+		server.login(sender_email, password)
+		server.sendmail(
+		    sender_email, receiver_email, message.as_string()
+		)
+	return None
